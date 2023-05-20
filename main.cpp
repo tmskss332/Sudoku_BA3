@@ -1,4 +1,3 @@
-#include "graphics.hpp"
 #include "App.hpp"
 #include "base_widget.hpp"
 #include "szam_widget.hpp"
@@ -15,15 +14,20 @@ class Sudoku : public App
 {
 private:
     Szam_widget* sw;
+    Game_space* grid;
 
 public:
     Sudoku()
     {
-        sw = new Szam_widget(0,0,900,900,1,9);
+        sw = new Szam_widget(this,0,0,90,90,1,9);
+        grid = new Game_space(this,0,0,900,900);
+        register_widget(sw);
+        register_widget(grid);
     }
 };
 int main()
 {
-    Game_space a;
+    Sudoku game;
+    game.game_loop();
     return 0;
 }

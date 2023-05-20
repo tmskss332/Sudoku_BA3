@@ -9,9 +9,9 @@ class Szam_widget : public Base_widget
     protected:
         int i_min, i_max, szam;
     public:
-        Szam_widget(int x, int y, int size_x, int size_y, int _min, int _max);
-        void rajzol();
-        void valtoztat(genv::event ev);
+        Szam_widget(App* parent, int x, int y, int size_x, int size_y, int _min, int _max);
+        void draw();
+        void handle(genv::event ev);
         int get_szam();
         string get_szov();
 

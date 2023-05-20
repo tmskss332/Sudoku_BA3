@@ -5,12 +5,12 @@
 using namespace genv;
 using namespace std;
 
-Szam_widget::Szam_widget(int x, int y, int size_x, int size_y, int _min, int _max)
-    :Base_widget(x, y, size_x, size_y), i_min(_min), i_max(_max), szam(0)
+Szam_widget::Szam_widget(App* parent, int x, int y, int size_x, int size_y, int _min, int _max)
+    :Base_widget(parent,x, y, size_x, size_y), i_min(_min), i_max(_max), szam(0)
 {
 }
 
-void Szam_widget::rajzol()
+void Szam_widget::draw()
 {
     if(_size_x < 150)
         _size_x = 150;
@@ -34,7 +34,7 @@ void Szam_widget::rajzol()
     stream << szam;
     string szam_s;
     stream >> szam_s;
-    if(_kivalasztva)
+    if(_selected)
     {
         gout << move_to(_x, _y) << color(160, 160, 160) << box(_size_x, _size_y)
          << move_to(_x + 10, _y + 10) << color(96, 96, 96) << box(_size_x-20, _size_y-20);
@@ -58,9 +58,9 @@ void Szam_widget::rajzol()
 
 }
 
-void Szam_widget::valtoztat(genv::event ev)
+void Szam_widget::handle(genv::event ev)
 {
-    if(_kivalasztva)
+    if(_selected)
     {
         if(ev.type == ev_key)
         {
