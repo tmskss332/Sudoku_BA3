@@ -6,6 +6,11 @@
 
 using namespace std;
 
+struct Number
+{
+    int n;
+    bool can_edit;
+};
 struct Koord
 {
     int x,y;

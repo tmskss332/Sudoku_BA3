@@ -7,12 +7,6 @@
 
 using namespace std;
 
-struct Number
-{
-    int n;
-    bool can_edit;
-};
-
 class Game_space : public Base_widget
 {
     public:
