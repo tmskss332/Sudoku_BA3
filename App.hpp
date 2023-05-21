@@ -2,18 +2,21 @@
 #define APP_HPP
 
 #include <vector>
-#include "graphics.hpp"
+
 
 using namespace std;
 
-class Widget;
+class Base_widget;
+
 class App
 {
     protected:
-        vector<Widget*> widgets;
+        vector<Base_widget*> widgets;
 
     public:
+        App();
         void game_loop();
+        void register_widget(Base_widget*);
 };
 
 #endif // APP_HPP

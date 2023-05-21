@@ -1,17 +1,21 @@
 #include "szam_widget.hpp"
 #include "graphics.hpp"
 #include <sstream>
+#include <iostream>
 
 using namespace genv;
 using namespace std;
 
-Szam_widget::Szam_widget(int x, int y, int size_x, int size_y, int _min, int _max)
-    :Base_widget(x, y, size_x, size_y), i_min(_min), i_max(_max), szam(0)
+Szam_widget::Szam_widget(App* parent, int x, int y, int size_x, int size_y, int _min, int _max, function<void()> f)
+    :Base_widget(parent,x, y, size_x, size_y), i_min(_min), i_max(_max), szam(0), _f(f)
 {
+    grid_koord.x = -1;
+    grid_koord.y = -1;
 }
 
-void Szam_widget::rajzol()
+void Szam_widget::draw()
 {
+    /*
     if(_size_x < 150)
         _size_x = 150;
     if(_size_x > 200)
@@ -34,7 +38,7 @@ void Szam_widget::rajzol()
     stream << szam;
     string szam_s;
     stream >> szam_s;
-    if(_kivalasztva)
+    if(_selected)
     {
         gout << move_to(_x, _y) << color(160, 160, 160) << box(_size_x, _size_y)
          << move_to(_x + 10, _y + 10) << color(96, 96, 96) << box(_size_x-20, _size_y-20);
@@ -55,41 +59,76 @@ void Szam_widget::rajzol()
          << move_to(_x + _size_x/2 + 35, _y + _size_y/2 - 9) << box(10, 4)
          << move_to(_x + _size_x/2 + 35, _y + _size_y/2 + 6) << box(10, 4)
          << move_to(_x + _size_x/2 - 15, _y + _size_y/2 + 5) << text(szam_s);
-
+    */
 }
 
-void Szam_widget::valtoztat(genv::event ev)
+void Szam_widget::handle(genv::event ev)
 {
-    if(_kivalasztva)
+    if(_selected)
     {
+        if(ev.type == ev_mouse && ev.button == btn_left)
+        {
+            for(int i=0;i<9;i++)
+                {
+
+                    if(ev.pos_x > i*100+2 && ev.pos_x <(i+1)*100-2)
+                    {
+                        grid_koord.x = i;
+                    }
+                }
+
+                for(int i=0;i<9;i++)
+                {
+                    if(ev.pos_y > i*100+2 && ev.pos_y <(i+1)*100-2)
+                    {
+                        grid_koord.y = i;
+                    }
+                }
+        }
         if(ev.type == ev_key)
         {
-            if(ev.keycode == key_up && szam < i_max)
+
+            if(ev.keycode == 49)
             {
-                szam = szam + 1;
-            }
-            if(ev.keycode == key_f1)
-            {
-                if(szam <= i_max - 10)
-                    szam = szam + 10;
-                else if(szam > i_max - 10 && szam < i_max)
-                    szam = i_max;
+                szam = 1;
             }
 
-            if(ev.keycode == key_down && szam > i_min)
+            if(ev.keycode == 50)
             {
-                szam = szam - 1;
+                szam = 2;
             }
-            if(ev.keycode == key_f2)
+            if(ev.keycode == 51)
             {
-                if(szam >= i_min + 10)
-                    szam = szam - 10;
-                else if(szam < i_min + 10 && szam > i_min)
-                    szam = i_min;
+                szam = 3;
+            }if(ev.keycode == 52)
+            {
+                szam = 4;
+            }if(ev.keycode == 53)
+            {
+                szam = 5;
+            }if(ev.keycode == 54)
+            {
+                szam = 6;
+            }if(ev.keycode == 55)
+            {
+                szam = 7;
+            }if(ev.keycode == 56)
+            {
+                szam = 8;
             }
+            if(ev.keycode == 57)
+            {
+                szam = 9;
+            }
+            if(ev.keycode == key_backspace)
+            {
+                szam = 0;
+            }
+            _f();
         }
     }
-    if(ev.type == ev_mouse && ev.button == btn_left)
+
+    /*if(ev.type == ev_mouse && ev.button == btn_left)
     {
         if((ev.pos_x >_x + _size_x/2 + 21 && ev.pos_x < _x + _size_x/2 + 59) && (ev.pos_y > _y + _size_y/2 - 15 && ev.pos_y < _y + _size_y/2 - 1) && szam < i_max)
         {
@@ -99,7 +138,7 @@ void Szam_widget::valtoztat(genv::event ev)
         {
             szam = szam - 1;
         }
-    }
+    }*/
 }
 
 int Szam_widget::get_szam()
@@ -111,3 +150,7 @@ string Szam_widget::get_szov()
     return "";
 }
 
+Koord Szam_widget::get_koord()
+{
+    return grid_koord;
+}
