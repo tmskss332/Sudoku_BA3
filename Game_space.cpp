@@ -33,11 +33,11 @@ void Game_space::draw()
 
             gout <<color(249, 246, 238) << move_to(i*tile+margin,j*tile+margin) << box(box_size,box_size)
                  <<font("Karate.ttf",40);
-            if(grid[i][j].can_edit == false)
+            if(grid[j][i].can_edit == false)
             {
                 gout << color(0,0,0);
             }
-            else if(grid[i][j].n == 0)
+            else if(grid[j][i].n == 0)
             {
                 gout << color(249, 246, 238);
             }
@@ -45,7 +45,7 @@ void Game_space::draw()
             {
                 gout << color(128, 102, 96);
             }
-            gout << move_to(i*tile+tile/2-gout.twidth(to_string(grid[i][j].n))/2, j*tile+margin+tile/2-font_h) << text(to_string(grid[i][j].n));
+            gout << move_to(i*tile+tile/2-gout.twidth(to_string(grid[j][i].n))/2, j*tile+margin+tile/2-font_h) << text(to_string(grid[j][i].n));
             if(j%3 == 0)
             {
 
@@ -57,7 +57,6 @@ void Game_space::draw()
 
                 gout << color(255,255,255) << move_to(0, i*tile-margin) << box(900, 2*margin);
             }
-
     }
     gout << refresh;
 }
