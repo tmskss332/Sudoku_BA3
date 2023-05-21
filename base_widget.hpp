@@ -2,24 +2,29 @@
 #define BASE_WIDGET_HPP
 
 #include "graphics.hpp"
+#include "App.hpp"
 
 using namespace std;
 
+struct Koord
+{
+    int x,y;
+};
 class Base_widget
 {
     protected:
         int _x, _y, _size_x, _size_y;
-        bool _kivalasztva;
+        bool _selected;
+        App* _parent;
     public:
-        Base_widget(int x, int y, int size_x, int size_y);
-        bool felette(int px, int py);
-        bool kivalasztva();
-        void kivalaszt(genv::event ev);
-        void elfelejt();
+        Base_widget(App*, int x, int y, int sx, int sy);
+        virtual bool is_selected(int mouse_x, int mouse_y);
+        virtual void select();
+        virtual void unselect();
+        virtual void draw() = 0;
+        virtual void handle(genv::event ev) = 0;
         virtual int get_szam() = 0;
-        virtual string get_szov() = 0;
-        virtual void rajzol() = 0;
-        virtual void valtoztat(genv::event ev) = 0;
+
 };
 
 #endif // BASE_WIDGET_HPP
