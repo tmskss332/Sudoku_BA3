@@ -8,7 +8,6 @@
 #include <time.h>
 #include <vector>
 #include <functional>
-#include <iostream>
 
 // kezdo menu hattere lassitja a futast, komment
 
@@ -43,7 +42,6 @@ public:
         srand(time(0));
         //int g = 0 ; //teszteléshez: egy mezo kitoltese szukseges a puzzle befejezesehez (4)
         int g = 10 * (1+ (rand() % 49));
-        cout << g <<endl;
         string junk;
         char n;
         ifstream g_file("sudoku.txt");
