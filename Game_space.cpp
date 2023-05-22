@@ -23,6 +23,7 @@ void Game_space::draw()
 
     if(menu && !completed)
     {
+        //hatter innentol
         vector<RGB> pics;
         ifstream file("bg.csv");
 
@@ -63,6 +64,8 @@ void Game_space::draw()
             }
         }
         gout << stamp(c,_x,_y);
+
+        //idaig
 
         gout << font("Karate.ttf",90)
              << move_to(_x + _size_x/2 - gout.twidth("Sudoku")/2, _y+(_size_y-gout.cascent()-gout.cdescent())/2)

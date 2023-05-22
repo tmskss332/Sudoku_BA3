@@ -24,9 +24,9 @@ struct Koord
 class Base_widget
 {
     protected:
+        App* _parent;
         int _x, _y, _size_x, _size_y;
         bool _selected;
-        App* _parent;
         bool active;
     public:
         Base_widget(App*, int x, int y, int sx, int sy);
