@@ -88,7 +88,7 @@ bool Rule_check::square_check()
             e.push_back(0);
         }
     }
-
+    return correct;
 }
 
 bool Rule_check::completion_check()
