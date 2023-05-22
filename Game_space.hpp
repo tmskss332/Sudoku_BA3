@@ -2,10 +2,15 @@
 #define GAME_SPACE_HPP
 
 #include "base_widget.hpp"
-#include <vector>
 #include <iostream>
 
 using namespace std;
+
+struct RGB
+{
+    int r,g,b;
+
+};
 
 class Game_space : public Base_widget
 {
@@ -17,9 +22,14 @@ class Game_space : public Base_widget
         int get_szam();
         bool is_selected(int,int);
         void update(vector<vector<Number>>);
+        void complete();
+        void start();
+        void status(bool, bool, bool);
 
     protected:
         vector<vector<Number>> grid;
+        bool completed;
+        bool menu;
 
 
 
