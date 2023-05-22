@@ -12,6 +12,11 @@ App::App()
 {
     gout.open(900,900);
     gout << refresh;
+    menu = true;
+    game = false;
+    vic = false;
+    _exit = false;
+
 }
 
 
@@ -19,7 +24,7 @@ void App::game_loop()
 {
     event ev;
     int focus = -1;
-    while(gin>>ev && ev.keycode != key_escape)
+    while(gin>>ev && ev.keycode != key_escape && !_exit)
     {
 
         if (ev.type == ev_mouse && ev.button==btn_left)

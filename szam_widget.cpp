@@ -1,7 +1,4 @@
 #include "szam_widget.hpp"
-#include "graphics.hpp"
-#include <sstream>
-#include <iostream>
 
 using namespace genv;
 using namespace std;
@@ -64,81 +61,72 @@ void Szam_widget::draw()
 
 void Szam_widget::handle(genv::event ev)
 {
-    if(_selected)
+    if(active)
     {
-        if(ev.type == ev_mouse && ev.button == btn_left)
+        if(_selected)
         {
-            for(int i=0;i<9;i++)
-                {
-
-                    if(ev.pos_x > i*100+2 && ev.pos_x <(i+1)*100-2)
-                    {
-                        grid_koord.x = i;
-                    }
-                }
-
+            if(ev.type == ev_mouse && ev.button == btn_left)
+            {
                 for(int i=0;i<9;i++)
-                {
-                    if(ev.pos_y > i*100+2 && ev.pos_y <(i+1)*100-2)
                     {
-                        grid_koord.y = i;
+
+                        if(ev.pos_x > i*100+2 && ev.pos_x <(i+1)*100-2)
+                        {
+                            grid_koord.x = i;
+                        }
                     }
+
+                    for(int i=0;i<9;i++)
+                    {
+                        if(ev.pos_y > i*100+2 && ev.pos_y <(i+1)*100-2)
+                        {
+                            grid_koord.y = i;
+                        }
+                    }
+            }
+            if(ev.type == ev_key)
+            {
+
+                if(ev.keycode == 49)
+                {
+                    szam = 1;
                 }
-        }
-        if(ev.type == ev_key)
-        {
 
-            if(ev.keycode == 49)
-            {
-                szam = 1;
+                if(ev.keycode == 50)
+                {
+                    szam = 2;
+                }
+                if(ev.keycode == 51)
+                {
+                    szam = 3;
+                }if(ev.keycode == 52)
+                {
+                    szam = 4;
+                }if(ev.keycode == 53)
+                {
+                    szam = 5;
+                }if(ev.keycode == 54)
+                {
+                    szam = 6;
+                }if(ev.keycode == 55)
+                {
+                    szam = 7;
+                }if(ev.keycode == 56)
+                {
+                    szam = 8;
+                }
+                if(ev.keycode == 57)
+                {
+                    szam = 9;
+                }
+                if(ev.keycode == key_backspace)
+                {
+                    szam = 0;
+                }
+                _f();
             }
-
-            if(ev.keycode == 50)
-            {
-                szam = 2;
-            }
-            if(ev.keycode == 51)
-            {
-                szam = 3;
-            }if(ev.keycode == 52)
-            {
-                szam = 4;
-            }if(ev.keycode == 53)
-            {
-                szam = 5;
-            }if(ev.keycode == 54)
-            {
-                szam = 6;
-            }if(ev.keycode == 55)
-            {
-                szam = 7;
-            }if(ev.keycode == 56)
-            {
-                szam = 8;
-            }
-            if(ev.keycode == 57)
-            {
-                szam = 9;
-            }
-            if(ev.keycode == key_backspace)
-            {
-                szam = 0;
-            }
-            _f();
         }
     }
-
-    /*if(ev.type == ev_mouse && ev.button == btn_left)
-    {
-        if((ev.pos_x >_x + _size_x/2 + 21 && ev.pos_x < _x + _size_x/2 + 59) && (ev.pos_y > _y + _size_y/2 - 15 && ev.pos_y < _y + _size_y/2 - 1) && szam < i_max)
-        {
-            szam = szam + 1;
-        }
-        else if((ev.pos_x >_x + _size_x/2 + 21 && ev.pos_x < _x + _size_x/2 + 59) && (ev.pos_y > _y + _size_y/2 + 1 && ev.pos_y < _y + _size_y/2 + 15) && szam > i_min)
-        {
-            szam = szam - 1;
-        }
-    }*/
 }
 
 int Szam_widget::get_szam()
@@ -153,4 +141,15 @@ string Szam_widget::get_szov()
 Koord Szam_widget::get_koord()
 {
     return grid_koord;
+}
+void Szam_widget::status(bool m, bool g, bool v)
+{
+    if(g)
+    {
+        active = true;
+    }
+    else
+    {
+        active = false;
+    }
 }

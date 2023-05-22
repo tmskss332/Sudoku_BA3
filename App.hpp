@@ -12,6 +12,10 @@ class App
 {
     protected:
         vector<Base_widget*> widgets;
+        bool menu;
+        bool game;
+        bool vic;
+        bool _exit;
 
     public:
         App();

@@ -1,6 +1,5 @@
 #include "Rule_check.hpp"
-#include <iostream>
-#include <vector>
+
 
 using namespace std;
 

@@ -1,13 +1,13 @@
 #include "App.hpp"
 #include "base_widget.hpp"
 #include "szam_widget.hpp"
-#include <iostream>
+#include "Game_space.hpp"
+#include "Rule_check.hpp"
+#include "Push_button.hpp"
 #include <fstream>
 #include <time.h>
 #include <vector>
-#include "Game_space.hpp"
 #include <functional>
-#include "Rule_check.hpp"
 
 
 using namespace genv;
@@ -19,22 +19,28 @@ private:
     Szam_widget* sw;
     Game_space* grid;
     Rule_check* rule;
+    Push_button* start;
+    Push_button* exit;
+
     vector<vector<Number>> grid_v;
 
 public:
     Sudoku()
     {
-        read_grid();
         sw = new Szam_widget(this,0,0,900,900,1,9, [=](){edit();check();});
         grid = new Game_space(this,0,0,900,900, grid_v);
         rule = new Rule_check(grid_v);
+        start = new Push_button(this,300, 500, 300, 50, "Play", [=](){start_game();});
+        exit = new Push_button(this,300, 560, 300, 50, "Exit", [=](){btn_exit();});
     }
     void read_grid()
     {
+        grid_v.clear();
         vector<Number> v;
         Number _n;
         srand(time(0));
-        int g = 10 * (rand() % 1);
+        //int g = 10 * (rand() % 1); //egy mezo kitoltese szukseges a puzzle befejezesehez (4)
+        int g = 10 * 1+(rand() % 49);
         string junk;
         char n;
         ifstream g_file("sudoku.txt");
@@ -82,7 +88,31 @@ public:
         bool win = rule->completion_check();
         if(win)
         {
+            game = false;
+            vic = true;
         }
+        for (Base_widget * w : widgets)
+        {
+            w->status(menu, game, vic);
+        }
+    }
+
+    void start_game()
+    {
+        menu = false;
+        game = true;
+        vic = false;
+        read_grid();
+        grid->update(grid_v);
+        for (Base_widget * w : widgets)
+        {
+            w->status(menu, game, vic);
+        }
+    }
+
+    void btn_exit()
+    {
+        _exit = true;
     }
 
 };

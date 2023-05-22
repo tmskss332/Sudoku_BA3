@@ -1,9 +1,9 @@
 #ifndef SZAM_WIDGET_HPP
 #define SZAM_WIDGET_HPP
 
-#include "graphics.hpp"
+
 #include "base_widget.hpp"
-#include <functional>
+
 
 class Szam_widget : public Base_widget
 {
@@ -18,6 +18,7 @@ class Szam_widget : public Base_widget
         int get_szam();
         string get_szov();
         Koord get_koord();
+        void status(bool, bool, bool);
 };
 
 #endif // SZAM_WIDGET_HPP
